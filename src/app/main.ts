@@ -13,6 +13,6 @@ import './app.main';
 import './services';
 import './directives';
 import './filters';
-import './controllers';
+import './components';
 import './app.routes';
 

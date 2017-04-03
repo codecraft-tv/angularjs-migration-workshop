@@ -5,33 +5,29 @@ angular
     .config(function ($stateProvider, $urlRouterProvider) {
       $stateProvider
           .state('list', {
-            url  : "/",
+            url: "/",
             views: {
-              'main'  : {
-                templateUrl: 'templates/list.html',
-                controller : 'PersonListController'
+              'main': {
+                template: '<person-list></person-list>',
               },
               'search': {
-                templateUrl: 'templates/searchform.html',
-                controller : 'SearchController'
+                template: '<search></search>',
               }
             }
           })
           .state('edit', {
-            url  : "/edit/:email",
+            url: "/edit/:email",
             views: {
               'main': {
-                templateUrl: 'templates/edit.html',
-                controller : 'PersonEditController'
+                template: '<person-edit></person-edit>'
               }
             }
           })
           .state('create', {
-            url  : "/create",
+            url: "/create",
             views: {
               'main': {
-                templateUrl: 'templates/create.html',
-                controller : 'PersonCreateController'
+                template: '<person-create></person-create>'
               }
             }
           });
