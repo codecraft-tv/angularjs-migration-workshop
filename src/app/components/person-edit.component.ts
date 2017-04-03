@@ -10,9 +10,7 @@ export let PersonEditComponent = {
 	      novalidate >
 		<div class="panel panel-default" >
 			<div class="panel-heading" >
-
-				{{$ctrl.mode}}
-
+				Edit
 				<div class="pull-right" >
 					<button class="btn btn-primary btn-sm"
 					        ladda="$ctrl.contacts.isSaving"
