@@ -1,3 +1,5 @@
+import * as angular from 'angular';
+
 angular
     .module('codecraft')
     .controller('PersonCreateController', function ($scope, $state, ContactService) {
