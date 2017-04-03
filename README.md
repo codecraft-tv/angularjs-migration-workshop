@@ -48,4 +48,6 @@ The application is a simple contacts application where you can search, create or
 *Consuming*
 - Replace all the js files in index.html with just one script tag `<script src="dist/bundle.js"></script>`
 
+### Step 3 - AngularJS 1.5+
 
+- Upgrade "angular", "angular-animate" and "angular-resource" to the latest 1.x version of angualr (1.6.2 in this example)
