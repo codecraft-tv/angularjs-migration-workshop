@@ -96,5 +96,19 @@ The application is a simple contacts application where you can search, create or
     - It depends on a 3rd party component called Toaster which only works in AngularJS, so we upgrade Toaster to use it in Angular via `ajs-upgraded-providers.ts`
     - We inject our upgraded Toaster using the `@Inject` annotation.
 
- 
+### Step 8 - Components to Angular
+*Components*
+- Convert all the components to Angular components, during this process we will need to deal with a bunch of 3rd party modules.
+    - For the 3rd party AngularJS `angular-ladda` module we use the Angular version `angular2-ladda`
+    - For the 3rd party AngularJS `ng-infinite-scroll` module we use the Angular version `angular2-infinite-scroll`
+    - For the `angular-spinner` 3rd party AngularJS module we re-write from scratch in Angular using the underlying `spin.js` library.
+    - Since filters can't be upgraded we just need to re-write our `defaultImage` filter as a pipe
+    - We also update the template HTML to use Angular syntax instead of AngularJS syntax.
+    - We then add out components to `NgModule`, ensuring we add as both declarations and entry components so we can use them in AngularJS templates.
+    
+
+*UI-Router*
+- Our component code uses ui-router, we will eventually move to using Angular router so for now we just need a patch to continue letting us use ui-router in this hybrid mode.
+    - We upgrade the ui-router services so we can use them in Angular, see `ajs-upgraded-providers.ts`
+    - We stop using ui-router directive such as `ui-sref` and instead hard code URLS in the template.
 

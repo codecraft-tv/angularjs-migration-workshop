@@ -28,6 +28,7 @@ export class ContactService {
         return person;
       }
     }
+    return {};
   }
 
   doSearch() {

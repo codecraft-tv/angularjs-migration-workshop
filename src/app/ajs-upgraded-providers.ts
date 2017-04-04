@@ -9,3 +9,26 @@ export const toasterServiceProvider = {
   useFactory: toasterServiceFactory,
   deps: ['$injector']
 };
+
+export const UIRouterState = new OpaqueToken("UIRouterState");
+
+export function uiRouterStateServiceFactory(i: any) {
+  return i.get('$state');
+}
+export const uiRouterStateProvider = {
+  provide: UIRouterState,
+  useFactory: uiRouterStateServiceFactory,
+  deps: ['$injector']
+};
+
+
+export const UIRouterStateParams = new OpaqueToken("UIRouterStateParams");
+
+export function uiRouterStateParamsServiceFactory(i: any) {
+  return i.get('$stateParams');
+}
+export const uiRouterStateParamsProvider = {
+  provide: UIRouterStateParams,
+  useFactory: uiRouterStateParamsServiceFactory,
+  deps: ['$injector']
+};

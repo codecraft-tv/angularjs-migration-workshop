@@ -1,43 +1,49 @@
 import * as angular from 'angular';
+import {Component} from "@angular/core";
+import {downgradeComponent} from "@angular/upgrade/static";
+import {ContactService} from "../services/contact.service";
 
-
-export let PersonListComponent = {
+@Component({
   selector: 'personList',
-  template: `
-<div class="col-md-12" >
+  template: `<div class="col-md-12">
 
-	<div class="row"
-	     infinite-scroll="$ctrl.contacts.loadMore()"
-	     infinite-scroll-immediate-check="false"
-	     infinite-scroll-distance="1"
-			>
+  <div class="row"
+      infinite-scroll
+      [infiniteScrollDistance]="2"
+      [immediateCheck]="false"
+      [infiniteScrollThrottle]="100"
+      (scrolled)="loadMore()" >
 
-		<cc-card ng-repeat="person in $ctrl.contacts.persons"
-				     user="person" >
-		</cc-card>
+    <ccCard *ngFor="let person of contacts.persons"
+            [user]="person">
+    </ccCard>
 
-	</div >
+  </div>
 
-	<div ng-show="$ctrl.contacts.persons.length == 0 && !$ctrl.contacts.isLoading" >
-		<div class="alert alert-info" >
-			<p class="text-center" >No results found for search term '{{ $ctrl.search }}'</p >
-		</div >
-	</div >
+  <div *ngIf="contacts.persons.length == 0 && !contacts.isLoading">
+    <div class="alert alert-info">
+      <p class="text-center">No results found for search term '{{ contacts.search }}'</p>
+    </div>
+  </div>
 
-	<cc-spinner is-loading="$ctrl.contacts.isLoading"
-	            message="Loading..." ></cc-spinner >
-</div >
-`,
-  bindings: {},
-  controller: class PersonListController {
-    public contacts = null;
-
-    constructor(ContactService) {
-      this.contacts = ContactService;
-    }
+  <ccSpinner [isLoading]="contacts.isLoading"
+             [message]="'Loading...'"></ccSpinner>
+</div>
+`
+})
+export class PersonListComponent {
+  constructor(public contacts: ContactService) {
   }
-};
+
+  loadMore() {
+    console.log("loadMore");
+    this.contacts.loadMore();
+  }
+}
+
 
 angular
     .module('codecraft')
-    .component(PersonListComponent.selector, PersonListComponent);
+    .directive('personList', downgradeComponent({
+      component: PersonListComponent
+    }) as angular.IDirectiveFactory);
