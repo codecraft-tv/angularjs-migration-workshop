@@ -1,6 +1,4 @@
-import * as angular from "angular";
-
-import {Component, Inject} from "@angular/core";
+import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {ContactService} from "../services/contact.service";
 

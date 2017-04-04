@@ -132,3 +132,14 @@ The application is a simple contacts application where you can search, create or
 - We replace `UIRouterState` with `Router` instead of `this.$state.go(...)` we use `this.router.navigate([...])`
 - We add the `RouterModule` to `NgModule` and provide the routes.
 
+### Step 10 - Remove AngularJS
+
+If we refer to AngularJS anywhere via an import this will be pulled into the final build by webpack, so we go through the code and make sure all references to AngularJS are removed.
+
+- Search for and remove `import * as angular from "angular";` as well as all downgrade code.
+- Remove `ajs-upgraded-providers.ts` and all usages
+- Remove angular imports from `main.ts`
+- Remove `app.main.ts`
+- Remove AngularJS packages from `package.json`
+- Remove `bower.json` and delete libs folder
+

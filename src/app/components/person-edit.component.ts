@@ -1,7 +1,6 @@
-import {Component, Inject} from "@angular/core";
+import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {ContactService} from "../services/contact.service";
-import {UIRouterStateParams, UIRouterState} from "../ajs-upgraded-providers";
 
 
 @Component({

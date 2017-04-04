@@ -1,7 +1,4 @@
-import * as angular from 'angular';
-
 import {Component} from "@angular/core";
-import {downgradeComponent} from "@angular/upgrade/static";
 import {ContactService} from "../services/contact.service";
 import {
     FormGroup,
@@ -64,10 +61,3 @@ export class SearchComponent {
         });
   }
 }
-
-
-angular
-    .module('codecraft')
-    .directive('search', downgradeComponent({
-      component: SearchComponent
-    }) as angular.IDirectiveFactory);

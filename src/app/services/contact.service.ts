@@ -1,7 +1,4 @@
-import * as angular from 'angular';
-
-import {Injectable, Inject} from "@angular/core";
-import {downgradeInjectable} from '@angular/upgrade/static';
+import {Injectable} from "@angular/core";
 import {Contact} from "./contact.resource";
 import {ToasterService} from 'angular2-toaster';
 
@@ -109,7 +106,3 @@ export class ContactService {
   };
 
 }
-
-angular
-    .module('codecraft')
-    .factory('ContactService', downgradeInjectable(ContactService));
