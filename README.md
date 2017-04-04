@@ -78,3 +78,11 @@ The application is a simple contacts application where you can search, create or
     - Use `Promise` instead of `$q`
     - Use `service` instead of `factory`
     
+    
+### Step 6 - Dual Boot
+    
+- Add Angular dependencies to `package.json`
+- Add `polyfills.ts` file
+- Remove `ng-app` from `index.html` file
+- Add polyfills, `NgModule` and hybrid bootstrap code to `app.main.ts`
+
