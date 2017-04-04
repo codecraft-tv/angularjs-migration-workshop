@@ -86,3 +86,15 @@ The application is a simple contacts application where you can search, create or
 - Remove `ng-app` from `index.html` file
 - Add polyfills, `NgModule` and hybrid bootstrap code to `app.main.ts`
 
+### Step 7 - Services to Angular
+
+- Added `rxjs-operators.ts` and imported it into main.ts, this is where we will add the rxjs operators we need in our application.
+- Add `HttpModule` to `NgModule` so we can use `Http` in our resource.
+- Convert `contact.resource` to Angular service, no need to downgrade since it's only being used in an Angular entity but we do need to add it to the `NgModule`. 
+- Convert `contact.service` to an Angular service.
+    - It needs to be downgraded so we can use it in an AngularJS entity.
+    - It depends on a 3rd party component called Toaster which only works in AngularJS, so we upgrade Toaster to use it in Angular via `ajs-upgraded-providers.ts`
+    - We inject our upgraded Toaster using the `@Inject` annotation.
+
+ 
+

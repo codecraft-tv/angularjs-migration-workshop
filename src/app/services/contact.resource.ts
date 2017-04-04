@@ -1,35 +1,49 @@
-import * as angular from 'angular';
+import {Injectable} from "@angular/core";
+import {Http, URLSearchParams} from "@angular/http";
 
+@Injectable()
 export class Contact {
   private apiRoot: string = 'http://localhost:3000/contacts';
-  private $http;
 
-  constructor($http) {
-    this.$http = $http;
+  constructor(private http: Http) {
   }
 
-  query(params: {string: string}) {
-    return this.$http.get(this.apiRoot, {params});
+  static toURLSearchParams(params): URLSearchParams {
+    let search = new URLSearchParams();
+    for (let key in params) search.append(key, params[key])
+    return search;
   }
 
-  get(id, params?: {string: string}) {
-    return this.$http.get(this.apiRoot + '/' + id, {params});
+  query(params?) {
+    let search = Contact.toURLSearchParams(params);
+    return this.http.get(this.apiRoot, {search})
+        .map(res => res.json())
+        .toPromise();
+  }
+
+  get(id, params?) {
+    let search = Contact.toURLSearchParams(params);
+    return this.http.get(this.apiRoot + '/' + id, {search})
+        .map(res => res.json())
+        .toPromise();
   }
 
   save(data: any) {
-    return this.$http.post(this.apiRoot, data);
+    return this.http.post(this.apiRoot, data)
+        .map(res => res.json())
+        .toPromise();
   }
 
   update(data) {
-    return this.$http.put(this.apiRoot + '/' + data.id, data);
+    return this.http.put(this.apiRoot + '/' + data.id, data)
+        .map(res => res.json())
+        .toPromise();
   }
 
   remove(data) {
-    return this.$http.delete(this.apiRoot + '/' + data.id);
+    return this.http.delete(this.apiRoot + '/' + data.id)
+        .map(res => res.json())
+        .toPromise();
   }
 
 }
-
-angular
-    .module('codecraft')
-    .service("Contact", Contact);

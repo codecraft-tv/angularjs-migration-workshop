@@ -9,22 +9,37 @@ import 'angular-strap';
 import 'angularjs-toaster';
 import 'angular-ui-router';
 
+import 'reflect-metadata';
+
 import './app.main';
 import './services';
 import './filters';
 import './components';
 import './app.routes';
 import './polyfills.ts';
+import './rxjs-operators.ts';
 
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {UpgradeModule} from '@angular/upgrade/static';
+import {HttpModule} from '@angular/http';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+
+import {toasterServiceProvider} from "./ajs-upgraded-providers"
+import {Contact} from "./services/contact.resource";
+import {ContactService} from "./services/contact.service";
 
 @NgModule({
   imports: [
     BrowserModule,
-    UpgradeModule
+    UpgradeModule,
+    HttpModule
+  ],
+  providers: [
+    Contact,
+    ContactService,
+    toasterServiceProvider
   ]
 })
 export class AppModule {

@@ -1,24 +1,24 @@
 import * as angular from 'angular';
 
+import {Injectable, Inject} from "@angular/core";
+import {downgradeInjectable} from '@angular/upgrade/static';
+import {Toaster} from "../ajs-upgraded-providers";
+import {Contact} from "./contact.resource";
+
+@Injectable()
 export class ContactService {
-  private Contact;
-  private toaster;
-  private page = 1;
-  private hasMore = true;
-  private isLoading = false;
-  private isSaving = false;
-  private isDeleting = false;
-  private selectedPerson = null;
-  private persons = [];
-  private search = null;
-  private sorting = 'name';
-  private ordering = 'ASC';
+  public page = 1;
+  public hasMore = true;
+  public isLoading = false;
+  public isSaving = false;
+  public isDeleting = false;
+  public persons = [];
+  public search = null;
+  public sorting = 'name';
+  public ordering = 'ASC';
 
 
-  constructor(Contact, toaster) {
-    this.Contact = Contact;
-    this.toaster = toaster;
-
+  constructor(private contact: Contact, @Inject(Toaster) private toaster) {
     this.loadContacts();
   }
 
@@ -48,18 +48,17 @@ export class ContactService {
         'q': this.search
       };
 
-      this.Contact.query(params).then(res => {
+      this.contact.query(params).then(res => {
         console.log(res);
-        for (let person of res.data) {
+        for (let person of res) {
           this.persons.push(person);
         }
-        if (!res.data) {
+        if (res.length === 0) {
           this.hasMore = false;
         }
         this.isLoading = false;
       });
     }
-
   };
 
   loadMore() {
@@ -72,7 +71,7 @@ export class ContactService {
   updateContact(person) {
     return new Promise((resolve, reject) => {
       this.isSaving = true;
-      this.Contact.update(person).then(() => {
+      this.contact.update(person).then(() => {
         this.isSaving = false;
         this.toaster.pop('success', 'Updated ' + person.name);
         resolve()
@@ -83,11 +82,10 @@ export class ContactService {
   removeContact(person) {
     return new Promise((resolve, reject) => {
       this.isDeleting = true;
-      this.Contact.remove(person).then(() => {
+      this.contact.remove(person).then(() => {
         this.isDeleting = false;
-        let index = this.persons.indexOf(person);
+        var index = this.persons.indexOf(person);
         this.persons.splice(index, 1);
-        this.selectedPerson = null;
         this.toaster.pop('success', 'Deleted ' + person.name);
         resolve()
       });
@@ -97,9 +95,8 @@ export class ContactService {
   createContact(person) {
     return new Promise((resolve, reject) => {
       this.isSaving = true;
-      this.Contact.save(person).then(() => {
+      this.contact.save(person).then(() => {
         this.isSaving = false;
-        this.selectedPerson = null;
         this.hasMore = true;
         this.page = 1;
         this.persons = [];
@@ -109,9 +106,9 @@ export class ContactService {
       });
     });
   };
-}
 
+}
 
 angular
     .module('codecraft')
-    .service('ContactService', ContactService);
+    .factory('ContactService', downgradeInjectable(ContactService));
