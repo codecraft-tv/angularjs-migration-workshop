@@ -40,6 +40,8 @@
     "ng-infinite-scroll": "1.2.1",
     "angular-ui-router": "^0.4.2",
     "angular-spinner": "^1.0.1",
+
+    "angular2-toaster": "^2.0.0",
     "angular2-infinite-scroll": "^0.3.3",
     "angular2-ladda": "^1.1.1",
     "spin.js": "^2.3.2"

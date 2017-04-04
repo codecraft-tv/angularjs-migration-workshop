@@ -1,9 +1,8 @@
 import * as angular from "angular";
 
 import {Component, Inject} from "@angular/core";
-import {downgradeComponent} from "@angular/upgrade/static";
+import {Router} from "@angular/router";
 import {ContactService} from "../services/contact.service";
-import {UIRouterStateParams, UIRouterState} from "../ajs-upgraded-providers";
 
 @Component({
   selector: 'personCreate',
@@ -13,22 +12,15 @@ export class PersonCreateComponent {
   public mode: string = 'Create';
   public person = {};
 
-  constructor(@Inject(UIRouterStateParams) private $stateParams,
-              @Inject(UIRouterState) private $state,
-              private contacts: ContactService) {
-    this.person = this.contacts.getPerson(this.$stateParams.email);
+  constructor(private contacts: ContactService,
+              private router: Router) {
+    this.person = {};
   }
 
   save() {
     this.contacts.createContact(this.person)
         .then(() => {
-          this.$state.go("list");
+          this.router.navigate(['']);
         })
   }
 }
-
-angular
-    .module('codecraft')
-    .directive('personCreate', downgradeComponent({
-      component: PersonCreateComponent
-    }) as angular.IDirectiveFactory);

@@ -26,13 +26,12 @@ import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfiniteScrollModule} from 'angular2-infinite-scroll';
 import {LaddaModule} from "angular2-ladda/module/module";
+import {RouterModule} from "@angular/router";
+import {ToasterModule} from 'angular2-toaster';
+
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import {
-    toasterServiceProvider,
-    uiRouterStateParamsProvider,
-    uiRouterStateProvider
-} from "./ajs-upgraded-providers"
+import {routes} from './app.routes'
 
 import {Contact} from "./services/contact.resource";
 import {ContactService} from "./services/contact.service";
@@ -43,6 +42,7 @@ import {PersonListComponent} from "./components/person-list.component";
 import {PersonEditComponent} from "./components/person-edit.component";
 import {PersonCreateComponent} from "./components/person-create.component";
 import {SearchComponent} from "./components/search.component";
+import {AppRootComponent} from "./components/app-root.component";
 
 import {DefaultImagePipe} from "./pipes/default-image.pipe";
 
@@ -55,7 +55,9 @@ import {DefaultImagePipe} from "./pipes/default-image.pipe";
     LaddaModule,
     FormsModule,
     ReactiveFormsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ToasterModule,
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   declarations: [
     CardComponent,
@@ -64,7 +66,8 @@ import {DefaultImagePipe} from "./pipes/default-image.pipe";
     DefaultImagePipe,
     PersonEditComponent,
     PersonCreateComponent,
-    SearchComponent
+    SearchComponent,
+    AppRootComponent
   ],
   entryComponents: [
     CardComponent,
@@ -72,25 +75,21 @@ import {DefaultImagePipe} from "./pipes/default-image.pipe";
     PersonListComponent,
     PersonEditComponent,
     PersonCreateComponent,
-    SearchComponent
+    SearchComponent,
+    AppRootComponent
   ],
   providers: [
     Contact,
-    ContactService,
-    toasterServiceProvider,
-    uiRouterStateParamsProvider,
-    uiRouterStateProvider
+    ContactService
   ],
+  bootstrap: [
+    AppRootComponent
+  ]
 })
 export class AppModule {
-  // Override Angular bootstrap so it doesn't do anything
-  ngDoBootstrap() {
-  }
 }
 
 // Bootstrap using the UpgradeModule
-platformBrowserDynamic().bootstrapModule(AppModule).then(platformRef => {
-  console.log("Bootstrapping in Hybrid mode with Angular & AngularJS");
-  const upgrade = platformRef.injector.get(UpgradeModule) as UpgradeModule;
-  upgrade.bootstrap(document.body, ['codecraft']);
+platformBrowserDynamic().bootstrapModule(AppModule).then(() => {
+  console.log("Bootstrapping Angular");
 });

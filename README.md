@@ -97,6 +97,7 @@ The application is a simple contacts application where you can search, create or
     - We inject our upgraded Toaster using the `@Inject` annotation.
 
 ### Step 8 - Components to Angular
+
 *Components*
 - Convert all the components to Angular components, during this process we will need to deal with a bunch of 3rd party modules.
     - For the 3rd party AngularJS `angular-ladda` module we use the Angular version `angular2-ladda`
@@ -111,4 +112,23 @@ The application is a simple contacts application where you can search, create or
 - Our component code uses ui-router, we will eventually move to using Angular router so for now we just need a patch to continue letting us use ui-router in this hybrid mode.
     - We upgrade the ui-router services so we can use them in Angular, see `ajs-upgraded-providers.ts`
     - We stop using ui-router directive such as `ui-sref` and instead hard code URLS in the template.
+
+### Step 9 - Routing & Booting Angular
+
+*Booting*
+- To use Angular router we need to stop dual booting.
+- This means we can't use the upgrade module anymore and we need solutions for all the upgrades AngularJS modules.
+    - For the upgraded ui-router service we can just ignore since we are dropping those.
+    - For the Toaster AngularJS module we will use the `angular2-toaster` package.
+- We also need a root `app.component` and add that to `NgModule` as a declaration aswell as a bootstrap value.
+- We also need to remove the dual boot code from `NgModule`
+- We add a `<base href="/">` to the index.html
+- We replace `index.html` body HTML with `<app-root></app-root>`
+    
+*Routing*
+- We update `app.routes` to use Angular route config instead of ui-route config.
+- We need to edit the component templates so that we use the Angular Router directives such as `routerOutlet` and `routerLink` etc..
+- We replace `UIRouterStateParams` with `ActivatedRoute` 
+- We replace `UIRouterState` with `Router` instead of `this.$state.go(...)` we use `this.router.navigate([...])`
+- We add the `RouterModule` to `NgModule` and provide the routes.
 

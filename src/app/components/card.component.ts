@@ -28,7 +28,7 @@ import {ContactService} from "../services/contact.service";
         </p>
 
         <a class="btn btn-default btn-sm"
-           [attr.href]="'#!/edit/' +  user.email">
+           [routerLink]="['/edit', user.email]">
           <i class="fa fa-pencil"></i>
           &nbsp;Edit
         </a>

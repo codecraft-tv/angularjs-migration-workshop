@@ -4,3 +4,4 @@ import "./person-list.component";
 import "./card.component";
 import "./spinner.component";
 import "./search.component";
+import "./app-root.component";

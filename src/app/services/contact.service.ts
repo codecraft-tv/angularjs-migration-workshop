@@ -2,8 +2,8 @@ import * as angular from 'angular';
 
 import {Injectable, Inject} from "@angular/core";
 import {downgradeInjectable} from '@angular/upgrade/static';
-import {Toaster} from "../ajs-upgraded-providers";
 import {Contact} from "./contact.resource";
+import {ToasterService} from 'angular2-toaster';
 
 @Injectable()
 export class ContactService {
@@ -18,7 +18,7 @@ export class ContactService {
   public ordering = 'ASC';
 
 
-  constructor(private contact: Contact, @Inject(Toaster) private toaster) {
+  constructor(private contact: Contact, private toaster: ToasterService) {
     this.loadContacts();
   }
 
