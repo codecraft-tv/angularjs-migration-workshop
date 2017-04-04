@@ -68,3 +68,13 @@ The application is a simple contacts application where you can search, create or
 - Convert both of these to components as well
     
 - Changed `app.routes.ts` to use components as HTML tags i.e. `template: '<person-list></person-list>'`    
+
+### Step 5 - ES6'ify
+
+- We've already actually started using ES6 in the componentify section.
+- We changed `contact.resource`, don't have `ngResource` in Angular but we do have an equivalent to `$http`, so we move to using `$http` instead.
+- We update `contact.service` to use an ES6 class.
+    - Use `for..of` instead of `angular.forEach`
+    - Use `Promise` instead of `$q`
+    - Use `service` instead of `factory`
+    
